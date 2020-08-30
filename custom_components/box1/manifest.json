@@ -1,0 +1,8 @@
+{
+  "domain": "box1",
+  "name": "Predictive Automation Using Home Assistant",
+  "documentation": "https://github.com/CS3398-Bolians-Booleans/CS3398-Bolians-S2019/blob/master/README.md",
+  "dependencies": [],
+  "codeowners": ["@Pts19","@s_b432"],
+  "requirements": ["pandas","sklearn","matplotlib"]
+}

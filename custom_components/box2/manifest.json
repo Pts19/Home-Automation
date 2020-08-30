@@ -1,0 +1,10 @@
+{
+  "domain": "box2",
+  "name": "box2",
+  "documentation": "https://github.com/CS3398-Bolians-Booleans/CS3398-Bolians-S2019/blob/master/README.md",
+  "dependencies": [],
+  "codeowners": ["@Pts19","@s_b432"],
+  "requirements": [],
+  "config_flow": true,
+  "zeroconf": ["_googlecast._tcp.local."]
+}

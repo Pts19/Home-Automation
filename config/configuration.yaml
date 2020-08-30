@@ -1,0 +1,118 @@
+#Config - Updated 10/20/2019
+
+#Currenly working
+cloud:
+zeroconf:
+config:
+
+python_script:
+
+notify:
+  - name: notify_state_change
+    platform: file
+    filename: state_changes.txt
+    timestamp: true
+
+automation: !include automations.yaml
+
+frontend: 
+  themes: !include themes.yaml
+
+default_config:
+
+logbook:
+  include:
+    domains:
+      - light
+      - device_tracker
+  exclude:
+    entities:
+      - 
+
+recorder:
+  include:
+    domains:
+      - light
+      - device_tracker
+      
+history:
+
+logger:
+  default: critical
+  logs:
+    # log level for HA core
+    homeassistant.core: fatal
+
+    # log level for MQTT integration
+    homeassistant.components.mqtt: warning
+
+    # log level for SmartThings lights
+    homeassistant.components.smartthings.light: info
+
+    # log level for a custom component
+    custom_components.hello_world: debug
+
+
+
+script:
+  add_logbook_entry:
+    alias: Add Logbook
+    sequence:
+      - service: logbook.log
+        data_template:
+          name: Stavros Bedside Table Light
+          message: is being used
+          # Optional
+          entity_id: light.bedside_table
+          domain: light
+      - service: logbook.log
+        data_template:
+          name: Stavros Iphone Left
+          message: is being used
+          # Optional
+          entity_id: device_tracker.stavross_iphone
+          domain: device_tracker
+
+http:
+  api_password: admin
+
+system_health:
+
+hello_world:
+
+
+# Google Maps component API
+sensor:
+    # Use Google Map component
+  - platform: google_travel_time
+    # Name of the sensor
+    name: Travel Time
+    # TODO: generate API key
+    api_key: AIzaSyAyDDKXONfTxf1Cj4I-oB1b3bE4ZIictgE
+    # Substitute with our tracker. Example: device_tracker.mobile_phone
+    origin: Austin, Texas 
+    # Substitute with our home. Example: zone.home
+    destination: San Marcos, Texas
+    # 'metric' for Metric, 'imperial' for Imperial
+    options:
+      units: imperial    
+
+#May be correct usage, cannot test as of yet.
+person:
+  - name: Bolians
+    id: 0e451b3ad26042a49fa7150252e930da
+    device_trackers:
+      - device_tracker.Bolians
+
+asuswrt:
+  host: 192.168.1.1
+  username: admin  
+  password: hotelquaint712
+  protocol: telnet
+  port: 23
+device_tracker:
+  - platform: asuswrt
+    interval_seconds: 20
+    consider_home: 180
+    new_device_defaults:
+      track_new_devices: true

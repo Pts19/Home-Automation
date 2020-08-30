@@ -1,0 +1,10 @@
+- id: '1571621139161'
+  alias: track_state_changes_stavross_iphone
+  trigger:
+  - entity_id: device_tracker.stavross_iphone
+    platform: state
+  condition: []
+  action:
+  - data_template:
+      message: '{{ trigger.to_state.state }}'
+    service: notify.notify_state_change

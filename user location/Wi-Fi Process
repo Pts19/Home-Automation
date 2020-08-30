@@ -1,0 +1,44 @@
+Wi-Fi Process
+
+9/24/19
+1. nslookup
+	-find the IP address of a network connected device
+	-poll before [2.] incase DNS changes IP
+
+2. nmap
+	-scan for if IP address is connected to network
+	-example process: https://www.youtube.com/watch?v=1lh_SkY8cHk
+
+
+
+
+
+
+-OLD-
+
+9/23/19
+ipstack API
+	-gets a bunch device info based on ip address
+	-includes gps location tool; though, inaccurate
+	-have working prototype
+	-still need a way to optain IPs
+___________
+import request
+import json
+
+accessCode = ''  # get access code from ipstack.com
+
+
+def get_info(address: str):
+    api = 'http://api.ipstack.com/' + address + '?access_key=' + accessCode + '&format=1'
+    result = urllib.request.urlopen(api).read()
+    result = result.decode()
+    result = json.loads(result)
+
+    return result  # return dict
+
+
+r = get_info('')  # enter ip address
+
+print(r)
+___________

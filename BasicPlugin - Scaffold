@@ -1,0 +1,46 @@
+DOMAIN = 'hello_world'
+
+def setup(hass, config):
+    """Setup our skeleton component."""
+    # States are in the format DOMAIN.OBJECT_ID.
+    hass.states.set('hello_world.Hello_World', 'Works!')
+
+    # Return boolean to indicate that initialization was successfully.
+    return True
+
+    
+    
+    
+custom_components/hello_world
+
+	>__init__.py 
+
+	 	##This holds the Domain_Object_ID and setup.
+		##Can be used to set states, interact with .py files
+		##Return True if initialization was complete.
+	
+
+
+	>manifest.json
+
+		##Needed for every custom integration
+		##Includes the domain: name which is used to reference and call integration in config
+		##Used to point to requirements, such as specific ML.py files and other needed files
+		##Sets config_flow: true to tell config to look for config_flow file. 
+		
+
+
+	>config_flow.py
+	
+		##Config entries uses the ""data flow entry framework"" to define their config flows.
+			##https://developers.home-assistant.io/docs/en/data_entry_flow_index.html
+		##Machine Learning code does not belong here BUT,
+			##The usage steps to implementing the code belong here.
+		
+		
+
+##Where I left off
+https://developers.home-assistant.io/docs/en/data_entry_flow_index.html
+https://developers.home-assistant.io/docs/en/dev_101_services.html
+https://developers.home-assistant.io/docs/en/config_entries_options_flow_handler.html
+https://developers.home-assistant.io/docs/en/configuration_yaml_index.html

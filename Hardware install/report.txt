@@ -1,0 +1,4 @@
+Installed the Home Assistant software onto a Raspberry Pi 3.
+
+Link to server running off Pi:
+https://kgolnwqwruwi56pt4xdl01ashqzl5tti.ui.nabu.casa/

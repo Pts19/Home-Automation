@@ -1,0 +1,19 @@
+GPS Process
+	Much more complicated than Wi-Fi to implement
+	If we try, should use Google's Geolocation API instead - mix of GPS/Wi-Fi/Cell towers to be more accurate
+		GPS doesn't work well indoors
+    
+9/26/19
+[Option A] User's phone sends Geolocation to our RaspPi
+	- Need to develop and install an app on the phone to ask permissions, send the data, etc.
+	- Probably more like what we're imagining but this method might require too much work
+	- https://developer.android.com/guide/topics/location/strategies.html#java
+	- https://developers.google.com/maps/documentation/geolocation/intro
+
+[Option B] Scrape the data from Google Maps Timeline
+	- Not sure how often it updates though, might poll once a day or something and won't work
+	- User needs Google Maps and Location History on
+	- https://www.google.com/maps/timeline
+
+[Option C] Don't implement
+	- Wi-fi is a good start

@@ -1,0 +1,119 @@
+import datetime
+import random
+import time
+import string
+import re
+import os.path
+# import appdaemon.plugins.hass.hassapi as hass
+
+
+def parse_mlstring(mlstring):
+    action = mlstring.split("@")[0]
+    seconds_offset = mlstring.split("@")[1]
+
+    return action, seconds_offset
+
+
+def calculate_atime(seconds_offset):
+    time_now = datetime.datetime.now()
+
+    adatetime = time_now + datetime.timedelta(0, seconds_offset)
+
+
+    atime = adatetime.time()
+
+
+
+    return atime
+
+
+
+
+def mlstring_to_astring(mlstring):
+    id_alias = ''.join(random.choice(string.digits) for i in range(13))
+    action_offset_tuple = parse_mlstring(mlstring)
+    action = action_offset_tuple[0]
+    atime = calculate_atime(int(action_offset_tuple[1]))
+
+    astring = "\n" + "- id: 'PHA" + "'\n" \
+              '  alias: ' + id_alias + '\n' \
+              '  trigger:\n' \
+              '  - platform: time\n' \
+              '    at: "' + str(atime) + '"\n'\
+              '  condition: []\n' \
+              '  action:\n' \
+              '    service: ' + action + '\n\n'
+
+    return astring
+
+
+def write_to_automations(mlstring):
+    path = 'config/'
+    filename = 'new_automations.yaml'
+    path_filename = os.path.join(path, filename)
+    f = open(filename, "a+")
+
+    f.write(mlstring_to_astring(mlstring))
+    f.close()
+    read_from_new_automations(mlstring)
+
+
+def read_from_new_automations(mlstring):
+
+
+	path = 'config/'
+	filename = 'automations.yaml'
+    path_filename = os.path.join(path, filename)
+
+    f = open(path_filename, "r+")
+
+    contents = f.readlines()
+    y = 0
+    
+    time_now = datetime.datetime.now()
+    time_now = time_now.time()
+    
+    for x in contents:
+        if(re.match('- id: \'PHA', contents[y])):
+        	for z in range(8):
+        		if(re.match('    at: \"\d', contents[y+z])):
+        			time_of = contents[y+z].split('\"')
+        			#print(str(time_of[1]))
+        			time_object = datetime.datetime.strptime(time_of[1], '%H:%M:%S.%f').time()
+        			if(time_now > time_object):
+        				del contents[y]
+        				for a in range(12):
+        					if(re.match('- id: ', contents[y])):
+        						break
+        					del contents[y]
+        				#Use this to delete all times less than the current time, so automations that have allready occured. 
+        y = y + 1
+
+    b = 0
+    f.close()
+    file = open(path_filename, "w")
+
+    for p in contents:
+    	file.write(contents[b])
+    	b = b + 1
+
+
+    file.write(mlstring_to_astring(mlstring))
+    f.close()
+
+# TODO: service call not currently working
+# def reload_automations():
+#     hass.services.call('automation', 'reload')
+
+
+#TODO PATRICK
+#    ---> Add tag to front of ID and Alias to differentiate between power use and .py created automations
+#    ---> Investigate if a .py created automation that turned on a light, but then was deleted will still keep light on.
+#    ---> Investigate if a .py created automation that turned on a light will automatically be turned on when we reload_automations().
+
+
+mock_mlstring = 'light.toggle@10'  # mock machine learning output - '@' as deliminator
+
+print(mlstring_to_astring('light.toggle@10'))  # test print with mock string
+write_to_automations('light.toggle@10')  # test write with mock string
+

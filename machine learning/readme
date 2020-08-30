@@ -1,0 +1,79 @@
+Data will look like this:
+Location: work, Action: null, Time arrived: 9:00:00am, Date:  9/25/19, Weekday: Tuesday, Holiday: Null, connection type: gps/wifi
+
+
+To do this, need to build Schedule diary. Entries will be made as such:
+
+Location data received from tracking program. Log first entry. Log current location in memory. Log last known location. same with connection type.
+
+Action is received from action listener. Lets say lights turned on.
+
+Consider connecting to WiFi a location update.
+
+Log 2nd entry using last known location.
+
+Same for all other actions received.
+
+Same for all other locations received.
+
+
+Machine learning algorithm should predict 3 things at one time: Location, Time, action.
+
+#The key one is time. We care about the next something will change. So if we ask at 2:00:00PM, it may return house, 6:01:33PM, open door.
+#Then we feed it this prediction to get the next result. So all data + prediction: house, 06:01:59, turn on the light
+DO NOT DO THIS: our prediction should be an entire schedule....we should use decision trees! Ignore the rest of this and
+go to readme2
+
+Machine learning algorithm idea:
+#Multiple instance learning (MIL). Specifically, Multiple instance regression (MIR).
+#Fuzzy and Possibilistic Clustering for Multiple Instance Linear Regression 10.1109/FUZZ-IEEE.2018.8491540
+
+Regression Clustering...
+#https://stackoverflow.com/questions/39208679/libraries-for-regression-clustering-in-python
+
+#spath algorithm: A fast algorithm for clusterwise linear regression
+
+
+All of the above tries to make fitted clusters. I want an exact numarical prediction.
+
+I could try using the above to get a cluster, then export that cluster to be fitted with linear regression.
+
+What this might look like:
+
+The day is Monday. We assume this is a cluster from the begining and ingnore all other data points. Mondays look like
+t  xxxxx
+i
+m  x
+e  xxxx
+  Monday
+where X's are data points.
+
+Two clusters are found.
+
+first cluster looks like
+z   x                                       xx
+o     xx
+o       xxxx        xx        xxxxx
+m            xxxxx      xxxxx
+e
+d
+
+i
+n
+
+t
+i
+m
+e
+  Various Mondays
+
+  Thus it turns out we want the average value. This is the value that has the least error to the center of the cluster.
+  So out machine learning algorithm should identify clusters, then pick which cluster we belong in. From that
+  it should return the center of that cluster. https://jakevdp.github.io/PythonDataScienceHandbook/05.12-gaussian-mixtures.html
+  this does this best. Use it.
+
+
+  keep in mind: predictions are made after the thing before it. So what are we really mapping? It looks like we are
+  mapping when the door gets opened on mondays, but what is really being mapped is the time of the next action after the
+  previous actions. So, everyday at time t we turn off the light, what happens next? Well it can either be time T1 or T2
+  or TX. Doesn't matter what action comes immediately after, that is arbitrary.

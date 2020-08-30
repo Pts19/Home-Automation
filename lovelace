@@ -1,0 +1,97 @@
+{
+    "data": {
+        "config": {
+            "title": "Home",
+            "views": [
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "entity": "light.bedside_table",
+                            "name": "LIFX",
+                            "type": "light"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "light.bedside_table"
+                                }
+                            ],
+                            "hours_to_show": 72,
+                            "refresh_interval": 0,
+                            "title": "Light On/Off History",
+                            "type": "history-graph"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "device_tracker.stavross_iphone"
+                                }
+                            ],
+                            "hours_to_show": 24,
+                            "refresh_interval": 0,
+                            "title": "Stavros Home Away Graph",
+                            "type": "history-graph"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "device_tracker.jills_iphone"
+                                },
+                                {
+                                    "entity": "device_tracker.chicos_iphone"
+                                },
+                                {
+                                    "entity": "device_tracker.stavross_iphone"
+                                }
+                            ],
+                            "hours_to_show": 72,
+                            "refresh_interval": 0,
+                            "show_header_toggle": false,
+                            "title": "Home - Away Graphs",
+                            "type": "history-graph"
+                        },
+                        {
+                            "entity": "weather.home",
+                            "type": "weather-forecast"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "script.add_logbook_entry"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Logbook Push",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "device_tracker.jills_iphone"
+                                },
+                                {
+                                    "entity": "device_tracker.chicos_iphone"
+                                },
+                                {
+                                    "entity": "device_tracker.stavross_iphone"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "User Presence",
+                            "type": "entities"
+                        },
+                        {
+                            "entity": "",
+                            "type": "sensor"
+                        }
+                    ],
+                    "path": "default_view",
+                    "title": "Home"
+                }
+            ]
+        }
+    },
+    "key": "lovelace",
+    "version": 1
+}

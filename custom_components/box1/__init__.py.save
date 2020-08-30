@@ -1,0 +1,28 @@
+DOMAIN = 'box1'
+import Tree
+import pandas as pd
+
+def setup(hass, config):
+    """Setup our skeleton component."""
+     States are in the format DOMAIN.OBJECT_ID.
+    hass.states.set('box1.box1', 'Works!')
+    tree = Tree.DecisionTree()
+    #print(tree.train_and_validate('CSV_txt.txt'))
+    #df = {'action' : ["lights_livingroom_on"], 'time' : ["080000"], 'weekday' : ["monday"] , 'holiday' : ["0"]}
+    #df = pd.DataFrame(data=df)
+    #print(tree.predict(df))
+    #hass.bus.fire('example_component_my_cool_event', {
+
+    #    'answer': tree.train_and_validate('CSV_txt.txt')
+    #})
+    #while True:
+    #    hass.bus.fire('example_component_my_cool_event2', {
+
+    #        'answer': tree.predict(df)
+    #    })
+    # Return boolean to indicate that initialization was successfully.
+    return True
+    
+    
+    
+#

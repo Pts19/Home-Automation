@@ -1,0 +1,31 @@
+Decision tree for schedual prediction...
+
+Opens door
+
+how likely is the next task of previous tasks:
+
+10% chance to open door again.      90% chance they will update their location to work
+
+if they choose door,                      if they update their location to work
+20% chance it is after 5 minutes          60% chance it is within 20 minutes
+80 % chance it is within                  40% chance it is within 10 minutes
+5 minutes of the previous task
+
+
+For every prediction, we pass the previous N (need to pick an N, maybe 3?) decisions.
+If we want to predict 2 steps ahead, you first predict using N, then update N to have this prediction as the most recent
+decision, then predict again. Thus, the number of trees generated given K tasks and N "steps" or number of prior actions
+is 2(n-1) + k. This is a lot of trees, and that is with assuming they always do the same thing. If they can repeat tasks,
+then we get infinity trees... So N must be 1. Why?
+
+Cause now we pass previous task, location, time, day. This reduces the cost of repeated actions a ton. Also allows for 1
+tree to rule them all! Although, it will be a big ass tree. The tree returns two things. The next action, and in how many
+minutes the action will take place. Their are other things we can do.... Lets say we want to include traffic or weather?
+make another tree. If the action from the first tree is an action relevant to these senarios, we pass the same data into
+the 2nd tree with the current traffic/weather data. The only limitation of this is a lack of data, so we require a training
+perioud for both of these trees. Solution? Track the user for 1 day. Then copy that data across 7 days. Then once 7 days
+has passed, copy that 7 days across 2 weeks in order. Then once 1 more week has passed, we have 2 weeks of data to use.
+Just use it.
+
+https://scikit-learn.org/stable/modules/preprocessing.html
+http://www.insightsbot.com/blog/McTKK/python-one-hot-encoding-with-scikit-learn
